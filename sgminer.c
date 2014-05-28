@@ -5392,6 +5392,7 @@ static void *stratum_rthread(void *userdata)
 			if (!restart_stratum(pool)) {
 				pool_died(pool);
 				while (!restart_stratum(pool)) {
+					pool_failed(pool);
 					if (pool->removed)
 						goto out;
 					cgsleep_ms(30000);
@@ -5432,6 +5433,7 @@ static void *stratum_rthread(void *userdata)
 
 			pool_died(pool);
 			while (!restart_stratum(pool)) {
+				pool_failed(pool);
 				if (pool->removed)
 					goto out;
 				cgsleep_ms(30000);
